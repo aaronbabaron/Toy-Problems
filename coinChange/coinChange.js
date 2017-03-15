@@ -15,7 +15,7 @@ var coinChange = function(coins, amount, count) {
   if (count === undefined) isFirst = true;
 
   count = count || 0; 
-  var numTimes = amount / coins[0];
+  var numTimes = amount / coins[coins.length - 1];
   var fewestCoins = Infinity;
   var completedRun;
 
@@ -24,13 +24,13 @@ var coinChange = function(coins, amount, count) {
   }
 
   for (var i = 0; i <= numTimes; ++i) {
-    var amt = amount - coins[0] * i;
+    var amt = amount - coins[coins.length - 1] * i;
     var currentCoins = count + i;
 
     if (amt === 0 && currentCoins < fewestCoins) {
       fewestCoins = currentCoins; 
     } else if (amt > 0) {
-      completedRun = coinChange(coins.slice(1), amt, currentCoins); 
+      completedRun = coinChange(coins.slice(0, coins.length - 1), amt, currentCoins); 
 
       if (completedRun < fewestCoins) {
         fewestCoins = completedRun;
@@ -41,3 +41,5 @@ var coinChange = function(coins, amount, count) {
 
   return isFirst && fewestCoins === Infinity ? -1 : fewestCoins;
 };
+
+console.log(coinChange([3, 7, 405, 436], 8839));
