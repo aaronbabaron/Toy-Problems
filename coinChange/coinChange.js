@@ -11,6 +11,9 @@
 
 // remove front coin from  
 var coinChange = function(coins, amount, count) {
+  var isFirst = false;
+  if (count === undefined) isFirst = true;
+
   count = count || 0; 
   var numTimes = amount / coins[0];
   var fewestCoins = Infinity;
@@ -35,5 +38,6 @@ var coinChange = function(coins, amount, count) {
     }
   }
 
-  return fewestCoins === Infinity ? - 1 : fewestCoins;
+
+  return isFirst && fewestCoins === Infinity ? -1 : fewestCoins;
 };
