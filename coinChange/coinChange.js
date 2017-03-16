@@ -11,25 +11,29 @@
 
 // remove front coin from  
 var coinChange = function(coins, amount, count, fewestCoins) {
-  count = count || 0; 
-  fewestCoins = fewestCoins || Infinity;
+  coins = coins.sort((a, b) => a - b);
   var isFirst = count === undefined ? true : false;
 
-  var numTimes = amount / coins[coins.length - 1];
+
+  count = count || 0; 
+  fewestCoins = fewestCoins || Infinity;
+
+  var numTimes = Math.floor(amount / coins[coins.length - 1]);
   var completedRun;
 
   if (numTimes === 0 && amount > 0 && coins.length === 1) {
-    return fewestCoins;
+    fewestCoins = Infinity;
   }
 
-  for (var i = 0; i <= numTimes; ++i) {
+  for (var i = numTimes; i >= 0; --i) {
     var amt = amount - coins[coins.length - 1] * i;
     var currentCoins = count + i;
+
 
     if (currentCoins > fewestCoins) return fewestCoins;
 
     if (amt === 0 && currentCoins < fewestCoins) {
-      fewestCoins = currentCoins; 
+      return currentCoins;
     } else if (amt > 0) {
       completedRun = coinChange(coins.slice(0, coins.length - 1), amt, currentCoins, fewestCoins); 
 
@@ -42,5 +46,3 @@ var coinChange = function(coins, amount, count, fewestCoins) {
 
   return isFirst && fewestCoins === Infinity ? -1 : fewestCoins;
 };
-
-console.log(coinChange([3, 7, 405, 436], 8839));
