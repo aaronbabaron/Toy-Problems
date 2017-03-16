@@ -49,3 +49,6 @@ function add(x, y) {
 
   return longer.join('');
 }
+
+
+console.log(pow('100000', '2'));
