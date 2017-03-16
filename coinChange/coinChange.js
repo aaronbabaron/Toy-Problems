@@ -46,3 +46,4 @@ var coinChange = function(coins, amount, count, fewestCoins) {
 
   return isFirst && fewestCoins === Infinity ? -1 : fewestCoins;
 };
+
