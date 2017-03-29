@@ -18,7 +18,18 @@ function pow(x, y) {
 }
 
 function multiply(x, y) {
+  var isNeg = false;
   var total = x;
+
+  if (x.charAt(0) === '-') {
+    isNeg = !isNeg;
+    x = x.substring(1);
+  }
+
+  if (y.charAt(0) === '-') {
+    isNeg = !isNeg;
+    y = y.substring(1);
+  }
 
   if (x === '0' || y === '0') return '0';
 
@@ -26,7 +37,7 @@ function multiply(x, y) {
     total = add(total, x); 
   }
 
-  return total;
+  return isNeg ? '-' + total : total;
 }
 
 function add(x, y) {
@@ -51,4 +62,4 @@ function add(x, y) {
 }
 
 
-console.log(pow('100000', '2'));
+console.log(pow('-3', '2'));
